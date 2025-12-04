@@ -1,5 +1,8 @@
 import { Linkedin, Mail } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import teamJoseph from "@/assets/team-joseph.png";
+import teamJaime from "@/assets/team-jaime.png";
+import teamXammy from "@/assets/team-xammy.png";
 
 const team = [
   {
@@ -10,7 +13,7 @@ const team = [
       "Arquitecto de la visión de SAVA. Combina pensamiento sistémico de ingeniería con construcción de soluciones tecnológicas precisas.",
     linkedin: "https://linkedin.com/in/joseph-javier-sánchez-acuña-150410275",
     email: "joseph.sanchez@uniminuto.edu.co",
-    initials: "JS",
+    image: teamJoseph,
   },
   {
     name: "Jaime Eduardo Aragón Campo",
@@ -20,7 +23,7 @@ const team = [
       "Líder de ejecución operativa. Combina análisis estadístico riguroso con visión estratégica para construir soluciones innovadoras.",
     linkedin: "#",
     email: "#",
-    initials: "JA",
+    image: teamJaime,
   },
   {
     name: "Xammy Alexander Victoria Gonzalez",
@@ -30,7 +33,7 @@ const team = [
       "Responsable de estrategia comercial. Puente entre mercado y desarrollo, asegurando propuesta de valor clara y ROI tangible.",
     linkedin: "#",
     email: "#",
-    initials: "XV",
+    image: teamXammy,
   },
 ];
 
@@ -54,19 +57,21 @@ export function TeamSection() {
 
         {/* Team Grid */}
         <div className="grid md:grid-cols-3 gap-8">
-          {team.map((member, index) => (
+          {team.map((member) => (
             <Card
               key={member.name}
               className="group relative overflow-hidden border-border/50 bg-card hover:border-primary/50 transition-all duration-500 hover:shadow-xl"
             >
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <CardContent className="relative pt-8 pb-6 text-center">
-                {/* Avatar */}
-                <div className="relative w-24 h-24 mx-auto mb-6">
-                  <div className="w-full h-full rounded-full bg-gradient-to-br from-primary to-primary/50 flex items-center justify-center text-2xl font-bold text-primary-foreground shadow-lg group-hover:scale-105 transition-transform duration-300">
-                    {member.initials}
-                  </div>
-                  <div className="absolute inset-0 rounded-full border-4 border-card" />
+                {/* Avatar with real photo */}
+                <div className="relative w-28 h-28 mx-auto mb-6">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full rounded-full object-cover object-top shadow-lg group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 rounded-full border-4 border-primary/20 group-hover:border-primary/50 transition-colors duration-300" />
                 </div>
 
                 {/* Info */}

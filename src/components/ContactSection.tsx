@@ -6,6 +6,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "El nombre es requerido").max(100, "Máximo 100 caracteres"),
+  email: z.string().trim().email("Email inválido").max(255, "Máximo 255 caracteres"),
+  company: z.string().trim().max(100, "Máximo 100 caracteres").optional(),
+  message: z.string().trim().min(1, "El mensaje es requerido").max(1000, "Máximo 1000 caracteres"),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 const contactInfo = [
   {
@@ -36,40 +49,46 @@ const contactInfo = [
 
 export function ContactSection() {
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    message: "",
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const onSubmit = async (data: ContactFormData) => {
+    try {
+      const { error } = await supabase.from("leads").insert({
+        name: data.name,
+        email: data.email,
+        company: data.company || null,
+        message: data.message,
+      });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+      if (error) throw error;
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+      setIsSubmitted(true);
+      toast({
+        title: "Mensaje enviado",
+        description: "Nos pondremos en contacto contigo pronto.",
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast({
-      title: "Mensaje enviado",
-      description: "Nos pondremos en contacto contigo pronto.",
-    });
-
-    // Reset form after delay
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: "", email: "", company: "", message: "" });
-    }, 3000);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        reset();
+      }, 3000);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Error",
+        description: "Hubo un problema al enviar el mensaje. Intenta de nuevo.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -137,32 +156,32 @@ export function ContactSection() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Nombre *</Label>
                       <Input
                         id="name"
-                        name="name"
                         placeholder="Tu nombre"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
+                        {...register("name")}
                         className="bg-background"
                       />
+                      {errors.name && (
+                        <p className="text-sm text-destructive">{errors.name.message}</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email *</Label>
                       <Input
                         id="email"
-                        name="email"
                         type="email"
                         placeholder="tu@email.com"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
+                        {...register("email")}
                         className="bg-background"
                       />
+                      {errors.email && (
+                        <p className="text-sm text-destructive">{errors.email.message}</p>
+                      )}
                     </div>
                   </div>
 
@@ -170,26 +189,27 @@ export function ContactSection() {
                     <Label htmlFor="company">Empresa / Organización</Label>
                     <Input
                       id="company"
-                      name="company"
                       placeholder="Nombre de tu empresa"
-                      value={formData.company}
-                      onChange={handleChange}
+                      {...register("company")}
                       className="bg-background"
                     />
+                    {errors.company && (
+                      <p className="text-sm text-destructive">{errors.company.message}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="message">Mensaje *</Label>
                     <Textarea
                       id="message"
-                      name="message"
                       placeholder="Cuéntanos sobre tu proyecto o necesidad..."
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
+                      {...register("message")}
                       rows={5}
                       className="bg-background resize-none"
                     />
+                    {errors.message && (
+                      <p className="text-sm text-destructive">{errors.message.message}</p>
+                    )}
                   </div>
 
                   <Button
