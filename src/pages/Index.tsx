@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { ServicesSection } from "@/components/ServicesSection";
@@ -10,11 +9,6 @@ import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
-  useEffect(() => {
-    // Add dark class by default for the tech theme
-    document.documentElement.classList.add("dark");
-  }, []);
-
   return (
     <main className="min-h-screen">
       <Navbar />
