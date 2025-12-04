@@ -1,13 +1,32 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useEffect } from "react";
+import { Navbar } from "@/components/Navbar";
+import { HeroSection } from "@/components/HeroSection";
+import { ServicesSection } from "@/components/ServicesSection";
+import { ProductsSection } from "@/components/ProductsSection";
+import { TeamSection } from "@/components/TeamSection";
+import { CasesSection } from "@/components/CasesSection";
+import { WhyUsSection } from "@/components/WhyUsSection";
+import { ContactSection } from "@/components/ContactSection";
+import { Footer } from "@/components/Footer";
 
 const Index = () => {
+  useEffect(() => {
+    // Add dark class by default for the tech theme
+    document.documentElement.classList.add("dark");
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <main className="min-h-screen">
+      <Navbar />
+      <HeroSection />
+      <ServicesSection />
+      <ProductsSection />
+      <TeamSection />
+      <CasesSection />
+      <WhyUsSection />
+      <ContactSection />
+      <Footer />
+    </main>
   );
 };
 
