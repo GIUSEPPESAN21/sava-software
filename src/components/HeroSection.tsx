@@ -77,24 +77,24 @@ export function HeroSection() {
           {/* Visual */}
           <div className="relative flex justify-center lg:justify-end animate-slide-in-right">
             <div className="relative">
-              {/* Main Logo */}
-              <div className="relative z-10 p-8 rounded-3xl gradient-card gradient-border shadow-2xl">
+              {/* Main Logo - Clean presentation */}
+              <div className="relative z-10 p-6 sm:p-10 rounded-3xl bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm border border-border/30 shadow-2xl">
                 <img
                   src={logoColibri}
                   alt="SAVA Colibrí Logo"
-                  className="w-64 h-64 sm:w-80 sm:h-80 object-contain animate-float"
+                  className="w-56 h-56 sm:w-72 sm:h-72 object-contain"
                 />
               </div>
 
-              {/* Floating Elements */}
-              <div className="absolute -top-4 -right-4 p-4 rounded-xl bg-card shadow-xl border border-border animate-fade-in" style={{ animationDelay: "0.4s" }}>
-                <Heart className="h-8 w-8 text-primary" />
+              {/* Floating Elements - Positioned further away */}
+              <div className="absolute -top-8 -right-8 p-3 rounded-xl bg-card/90 backdrop-blur-sm shadow-lg border border-primary/20 animate-float" style={{ animationDelay: "0.4s" }}>
+                <Heart className="h-6 w-6 text-primary" />
               </div>
-              <div className="absolute -bottom-4 -left-4 p-4 rounded-xl bg-card shadow-xl border border-border animate-fade-in" style={{ animationDelay: "0.5s" }}>
-                <Building2 className="h-8 w-8 text-primary" />
+              <div className="absolute -bottom-8 -left-8 p-3 rounded-xl bg-card/90 backdrop-blur-sm shadow-lg border border-primary/20 animate-float" style={{ animationDelay: "0.6s" }}>
+                <Building2 className="h-6 w-6 text-primary" />
               </div>
-              <div className="absolute top-1/2 -right-8 p-4 rounded-xl bg-card shadow-xl border border-border animate-fade-in" style={{ animationDelay: "0.6s" }}>
-                <Cpu className="h-8 w-8 text-primary" />
+              <div className="absolute top-1/2 -translate-y-1/2 -right-12 p-3 rounded-xl bg-card/90 backdrop-blur-sm shadow-lg border border-primary/20 animate-float" style={{ animationDelay: "0.8s" }}>
+                <Cpu className="h-6 w-6 text-primary" />
               </div>
             </div>
           </div>

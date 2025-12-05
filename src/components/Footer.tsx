@@ -41,11 +41,11 @@ export function Footer() {
             </p>
             <div className="flex gap-3">
               <a
-                href="https://linkedin.com/in/joseph-javier-sánchez-acuña-150410275"
+                href="https://www.linkedin.com/company/savasoftware/?viewAsMember=true"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
-                aria-label="LinkedIn"
+                aria-label="LinkedIn de SAVA Software"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
