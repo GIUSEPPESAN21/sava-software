@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import logoSava from "@/assets/logo-sava.jpg";
@@ -60,9 +60,18 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Theme Toggle + CTA Button */}
+          {/* Theme Toggle + LinkedIn + CTA Button */}
           <div className="hidden md:flex items-center gap-2">
             <ThemeToggle />
+            <a
+              href="https://www.linkedin.com/company/savasoftware/?viewAsMember=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors"
+              aria-label="LinkedIn de SAVA Software"
+            >
+              <Linkedin className="h-5 w-5" />
+            </a>
             <Button variant="hero" size="sm" asChild>
               <a href="#contacto">Contáctanos</a>
             </Button>

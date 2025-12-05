@@ -65,13 +65,13 @@ export function TeamSection() {
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <CardContent className="relative pt-8 pb-6 text-center">
                 {/* Avatar with real photo */}
-                <div className="relative w-28 h-28 mx-auto mb-6">
+                <div className="relative w-32 h-32 mx-auto mb-6">
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="w-full h-full rounded-full object-cover object-top shadow-lg group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full rounded-full object-cover object-center shadow-lg group-hover:scale-105 transition-transform duration-300 bg-muted"
                   />
-                  <div className="absolute inset-0 rounded-full border-4 border-primary/20 group-hover:border-primary/50 transition-colors duration-300" />
+                  <div className="absolute inset-0 rounded-full border-4 border-primary/30 group-hover:border-primary/60 transition-colors duration-300" />
                 </div>
 
                 {/* Info */}
